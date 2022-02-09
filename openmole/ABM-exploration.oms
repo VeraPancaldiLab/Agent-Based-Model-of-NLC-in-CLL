@@ -41,8 +41,7 @@ val signalInitStd = Val[Int]
 
 
 // Experimental Data
-val dataFile1 = Val[File]
-val dataFile2 = Val[File]
+val dataFile = Val[File]
 
 // Outputs
 val nbNeedSignalCancerCells = Val[Double]
@@ -115,7 +114,7 @@ def modelTask(monoInit: Double, simuDur: Int) =
 val fitnessTask = ScalaTask("""
     
     // get the experimental real dataFile
-    val columns = dataFile1.lines.drop(1).map(_.split(",")).toVector
+    val columns = dataFile.lines.drop(1).map(_.split(",")).toVector
 
     val realViabilityVector = columns.map(_(1).toDouble)
     val realConcentrationVector = columns.map(_(2).toDouble)
@@ -137,8 +136,8 @@ val fitnessTask = ScalaTask("""
     val fitnessConc = fitnessConcentration(realConcentrationVector, simulatedConcentrationVector)
 
 """) set (
-    dataFile1 := (workDirectory / "expDataReal-3patients-corrected.csv"),
-    inputs += dataFile1,
+    dataFile := (workDirectory / "expData.csv"),
+    inputs += dataFile,
     inputs += (simulatedViabilityVector,simulatedConcentrationVector),
     outputs += (fitnessVia, fitnessConc)
 )
