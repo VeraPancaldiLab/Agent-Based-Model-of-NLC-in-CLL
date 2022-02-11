@@ -136,7 +136,7 @@ to setup-Globals
   set death-threshold -500
   set density 55
   set nb-cancer-cells-init 5000
-  set prop-monocytes-init 1.6;
+  set prop-monocytes-init gui-prop-mono-init;1.6;
 
 ; optimized
   set nlc-threshold gui-nlc-threshold
@@ -292,6 +292,10 @@ end
 to-report getContacts
   report contacts
 end
+
+;;;;;;;;;;;;;;;;;;;;;
+;;;;; ACTIONS ;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;
 
 to do_phagocytosis [ phago-eff sensing-distance ] ;; phagocytosis for Monocytes
   ;; look for dead or late apoptotic cells in the neighbors
@@ -974,7 +978,7 @@ INPUTBOX
 101
 134
 gui-prop-mono-init
-1.6
+1.1
 1
 0
 Number
@@ -1513,326 +1517,7 @@ NetLogo 3D 6.1.0
 @#$#@#$#@
 @#$#@#$#@
 <experiments>
-  <experiment name="first-explo" repetitions="1" runMetricsEveryStep="true">
-    <setup>setup</setup>
-    <go>go</go>
-    <metric>count cancer-cells</metric>
-    <metric>count monocytes</metric>
-    <metric>count NLCs</metric>
-    <metric>count macrophages</metric>
-    <steppedValueSet variable="signal-radius" first="3" step="1" last="5"/>
-    <steppedValueSet variable="proba-differentiation" first="1" step="10" last="100"/>
-    <steppedValueSet variable="proba-diff-into-NLC" first="1" step="10" last="100"/>
-    <steppedValueSet variable="max-duration-attachment" first="0" step="5" last="20"/>
-    <steppedValueSet variable="max-duration-free-move" first="0" step="5" last="20"/>
-  </experiment>
-  <experiment name="NinaExplo" repetitions="10" runMetricsEveryStep="true">
-    <setup>setup</setup>
-    <go>go</go>
-    <timeLimit steps="312"/>
-    <metric>getViability</metric>
-    <metric>getRemainingCellRatio</metric>
-  </experiment>
-  <experiment name="NinaExploInAbsenceOfMonocytes" repetitions="1" runMetricsEveryStep="false">
-    <setup>setup</setup>
-    <go>go</go>
-    <timeLimit steps="216"/>
-    <metric>getViability</metric>
-    <metric>getRemainingCellRatio</metric>
-    <metric>getSeed</metric>
-    <enumeratedValueSet variable="gui-DeathThreshold">
-      <value value="-1000"/>
-      <value value="-500"/>
-      <value value="-200"/>
-      <value value="-100"/>
-      <value value="-50"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="gui-BlockedApoptosisThreshold">
-      <value value="600"/>
-      <value value="800"/>
-      <value value="1000"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="gui-disintegrationDuration">
-      <value value="72"/>
-      <value value="96"/>
-      <value value="120"/>
-    </enumeratedValueSet>
-  </experiment>
-  <experiment name="NinaExploInPresenceOfMonocytes" repetitions="3" runMetricsEveryStep="false">
-    <setup>setup</setup>
-    <go>go</go>
-    <timeLimit steps="312"/>
-    <metric>getViability</metric>
-    <metric>getRemainingCellRatio</metric>
-    <metric>getSeed</metric>
-    <metric>getNumberNLC</metric>
-    <metric>getNUmberMono</metric>
-    <enumeratedValueSet variable="gui-BlockedApoptosisThreshold">
-      <value value="1000"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="gui-alpha">
-      <value value="10"/>
-      <value value="50"/>
-      <value value="100"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="gui-NLCThreshold">
-      <value value="1000"/>
-      <value value="1500"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="diffusion-rate">
-      <value value="1"/>
-      <value value="10"/>
-      <value value="50"/>
-    </enumeratedValueSet>
-  </experiment>
-  <experiment name="NinaExploResistanceThresholdSensitivity" repetitions="3" runMetricsEveryStep="true">
-    <setup>setup</setup>
-    <go>go</go>
-    <timeLimit steps="312"/>
-    <metric>getSeed</metric>
-    <metric>getViability</metric>
-    <metric>getRemainingCellRatio</metric>
-    <metric>getdeath-threshold</metric>
-    <metric>getNumberNLC</metric>
-    <metric>getNumberMono</metric>
-    <metric>getDead</metric>
-    <metric>getNeedSignal</metric>
-    <metric>getLateApo</metric>
-    <metric>getResistant</metric>
-    <enumeratedValueSet variable="gui-blocked-apoptosis-threshold">
-      <value value="0"/>
-      <value value="10"/>
-      <value value="25"/>
-      <value value="50"/>
-      <value value="100"/>
-      <value value="200"/>
-      <value value="500"/>
-      <value value="1000"/>
-      <value value="2000"/>
-    </enumeratedValueSet>
-  </experiment>
-  <experiment name="NinaExploPrediction-cancerCellEater" repetitions="3" runMetricsEveryStep="false">
-    <setup>setup</setup>
-    <go>go</go>
-    <timeLimit steps="216"/>
-    <metric>getSeed</metric>
-    <metric>getViability</metric>
-    <metric>getRemainingCellRatio</metric>
-    <enumeratedValueSet variable="gui-prop-monocytes-init">
-      <value value="0"/>
-      <value value="0.01"/>
-      <value value="0.02"/>
-      <value value="0.04"/>
-      <value value="0.08"/>
-      <value value="0.16"/>
-      <value value="0.31"/>
-      <value value="0.63"/>
-      <value value="1.25"/>
-      <value value="2.5"/>
-      <value value="5"/>
-      <value value="7.5"/>
-      <value value="10"/>
-      <value value="20"/>
-    </enumeratedValueSet>
-  </experiment>
-  <experiment name="NinaExploAlphaSensitivity" repetitions="3" runMetricsEveryStep="true">
-    <setup>setup</setup>
-    <go>go</go>
-    <timeLimit steps="312"/>
-    <metric>getSeed</metric>
-    <metric>getViability</metric>
-    <metric>getRemainingCellRatio</metric>
-    <metric>getdeath-threshold</metric>
-    <metric>getNumberNLC</metric>
-    <metric>getNumberMono</metric>
-    <metric>getDead</metric>
-    <metric>getNeedSignal</metric>
-    <metric>getLateApo</metric>
-    <metric>getResistant</metric>
-    <enumeratedValueSet variable="gui-alpha">
-      <value value="0"/>
-      <value value="1"/>
-      <value value="2"/>
-      <value value="5"/>
-      <value value="10"/>
-      <value value="20"/>
-      <value value="50"/>
-      <value value="100"/>
-      <value value="200"/>
-      <value value="500"/>
-      <value value="1000"/>
-      <value value="2000"/>
-    </enumeratedValueSet>
-  </experiment>
-  <experiment name="NinaExploPhagoEffSensitivity" repetitions="3" runMetricsEveryStep="true">
-    <setup>setup</setup>
-    <go>go</go>
-    <timeLimit steps="312"/>
-    <metric>getSeed</metric>
-    <metric>getViability</metric>
-    <metric>getRemainingCellRatio</metric>
-    <metric>getdeath-threshold</metric>
-    <metric>getNumberNLC</metric>
-    <metric>getNumberMono</metric>
-    <metric>getDead</metric>
-    <metric>getNeedSignal</metric>
-    <metric>getLateApo</metric>
-    <metric>getResistant</metric>
-    <steppedValueSet variable="gui-mono-phago-eff" first="0" step="20" last="100"/>
-    <steppedValueSet variable="gui-NLC-phago-eff" first="0" step="20" last="100"/>
-  </experiment>
-  <experiment name="NinaExploPhagoEffSensitivityInAbsenceOfNLCProtectionAlpha100" repetitions="3" runMetricsEveryStep="true">
-    <setup>setup</setup>
-    <go>go</go>
-    <timeLimit steps="312"/>
-    <metric>getSeed</metric>
-    <metric>getViability</metric>
-    <metric>getRemainingCellRatio</metric>
-    <metric>getdeath-threshold</metric>
-    <metric>getNumberNLC</metric>
-    <metric>getNumberMono</metric>
-    <metric>getDead</metric>
-    <metric>getNeedSignal</metric>
-    <metric>getLateApo</metric>
-    <metric>getResistant</metric>
-    <steppedValueSet variable="gui-mono-phago-eff" first="0" step="20" last="100"/>
-    <steppedValueSet variable="gui-NLC-phago-eff" first="0" step="20" last="100"/>
-  </experiment>
-  <experiment name="NinaExploLife3" repetitions="3" runMetricsEveryStep="true">
-    <setup>setup</setup>
-    <go>go</go>
-    <timeLimit steps="216"/>
-    <metric>getSeed</metric>
-    <metric>getViability</metric>
-    <metric>getRemainingCellRatio</metric>
-    <enumeratedValueSet variable="gui-life-init">
-      <value value="0"/>
-      <value value="50"/>
-      <value value="100"/>
-      <value value="200"/>
-      <value value="300"/>
-      <value value="400"/>
-      <value value="500"/>
-      <value value="600"/>
-      <value value="700"/>
-      <value value="800"/>
-      <value value="900"/>
-      <value value="1000"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="gui-death-threshold">
-      <value value="0"/>
-      <value value="-50"/>
-      <value value="-100"/>
-      <value value="-200"/>
-      <value value="-300"/>
-      <value value="-400"/>
-      <value value="-500"/>
-    </enumeratedValueSet>
-  </experiment>
-  <experiment name="NinaExploStochasticity-cancerCellEater" repetitions="50" runMetricsEveryStep="true">
-    <setup>setup</setup>
-    <go>go</go>
-    <timeLimit steps="312"/>
-    <metric>getSeed</metric>
-    <metric>getViability</metric>
-    <metric>getRemainingCellRatio</metric>
-  </experiment>
-  <experiment name="NinaExploStochasticity-cancerCellEater-alpha-killEff" repetitions="3" runMetricsEveryStep="true">
-    <setup>setup</setup>
-    <go>go</go>
-    <timeLimit steps="312"/>
-    <metric>getSeed</metric>
-    <metric>getViability</metric>
-    <metric>getRemainingCellRatio</metric>
-    <enumeratedValueSet variable="gui-M0-kill-eff">
-      <value value="0"/>
-      <value value="10"/>
-      <value value="20"/>
-      <value value="30"/>
-      <value value="40"/>
-      <value value="50"/>
-      <value value="60"/>
-      <value value="70"/>
-      <value value="80"/>
-      <value value="90"/>
-      <value value="100"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="gui-alpha">
-      <value value="0"/>
-      <value value="1"/>
-      <value value="5"/>
-      <value value="10"/>
-      <value value="50"/>
-      <value value="100"/>
-    </enumeratedValueSet>
-  </experiment>
-  <experiment name="NinaExploPrediction-cancerCellEater3" repetitions="3" runMetricsEveryStep="false">
-    <setup>setup</setup>
-    <go>go</go>
-    <timeLimit steps="216"/>
-    <metric>getSeed</metric>
-    <metric>getViability</metric>
-    <metric>getRemainingCellRatio</metric>
-    <enumeratedValueSet variable="gui-prop-monocytes-init">
-      <value value="0"/>
-      <value value="0.01"/>
-      <value value="0.02"/>
-      <value value="0.04"/>
-      <value value="0.08"/>
-      <value value="0.16"/>
-      <value value="0.31"/>
-      <value value="0.63"/>
-      <value value="1.25"/>
-      <value value="2.5"/>
-      <value value="5"/>
-      <value value="7.5"/>
-      <value value="10"/>
-      <value value="20"/>
-    </enumeratedValueSet>
-  </experiment>
-  <experiment name="NinaExploPrediction-cancerCellEater4clean" repetitions="3" runMetricsEveryStep="false">
-    <setup>setup</setup>
-    <go>go</go>
-    <timeLimit steps="216"/>
-    <metric>getSeed</metric>
-    <metric>getViability</metric>
-    <metric>getRemainingCellRatio</metric>
-    <enumeratedValueSet variable="gui-prop-monocytes-init">
-      <value value="0"/>
-      <value value="0.01"/>
-      <value value="0.02"/>
-      <value value="0.04"/>
-      <value value="0.08"/>
-      <value value="0.16"/>
-      <value value="0.31"/>
-      <value value="0.63"/>
-      <value value="1.25"/>
-      <value value="2.5"/>
-      <value value="5"/>
-      <value value="7.5"/>
-      <value value="10"/>
-      <value value="20"/>
-    </enumeratedValueSet>
-  </experiment>
-  <experiment name="NinaExploPrediction-variance" repetitions="1" runMetricsEveryStep="true">
-    <setup>setup</setup>
-    <go>go</go>
-    <timeLimit steps="312"/>
-    <metric>getSeed</metric>
-    <metric>getNumberNLC</metric>
-    <steppedValueSet variable="gui-my_variance" first="10" step="2" last="20"/>
-    <steppedValueSet variable="gui-nlc-threshold" first="60" step="10" last="180"/>
-  </experiment>
-  <experiment name="NinaExploPrediction-signal-init" repetitions="1" runMetricsEveryStep="true">
-    <setup>setup</setup>
-    <go>go</go>
-    <timeLimit steps="312"/>
-    <metric>getSeed</metric>
-    <metric>getNumberNLC</metric>
-    <steppedValueSet variable="gui-my_signal_init" first="0" step="20" last="120"/>
-    <steppedValueSet variable="gui-nlc-threshold" first="60" step="10" last="180"/>
-  </experiment>
-  <experiment name="NinaExploPrediction-5" repetitions="3" runMetricsEveryStep="false">
+  <experiment name="prediction-day9-varying-mono-init" repetitions="3" runMetricsEveryStep="false">
     <setup>setup</setup>
     <go>go</go>
     <timeLimit steps="216"/>
@@ -1856,111 +1541,40 @@ NetLogo 3D 6.1.0
       <value value="20"/>
     </enumeratedValueSet>
   </experiment>
-  <experiment name="NinaExploStochasticity" repetitions="8" runMetricsEveryStep="true">
+  <experiment name="prediction-patient1-1.1" repetitions="8" runMetricsEveryStep="true">
     <setup>setup</setup>
     <go>go</go>
     <timeLimit steps="312"/>
     <metric>getSeed</metric>
     <metric>getViability</metric>
     <metric>getRemainingCellRatio</metric>
-  </experiment>
-  <experiment name="NinaExploNLCConversion" repetitions="3" runMetricsEveryStep="true">
-    <setup>setup</setup>
-    <go>go</go>
-    <timeLimit steps="312"/>
-    <metric>getSeed</metric>
-    <metric>getNumberMono</metric>
-    <metric>getNumberMacrophages</metric>
-    <metric>getNumberNLC</metric>
-    <enumeratedValueSet variable="gui-prop-monocytes-init">
-      <value value="0"/>
-      <value value="0.01"/>
-      <value value="0.02"/>
-      <value value="0.04"/>
-      <value value="0.08"/>
-      <value value="0.16"/>
-      <value value="0.31"/>
-      <value value="0.63"/>
-      <value value="1.25"/>
-      <value value="2.5"/>
-      <value value="5"/>
-      <value value="7.5"/>
-      <value value="10"/>
-      <value value="20"/>
-    </enumeratedValueSet>
-  </experiment>
-  <experiment name="NinaExploNLCFraction" repetitions="3" runMetricsEveryStep="false">
-    <setup>setup</setup>
-    <go>go</go>
-    <timeLimit steps="216"/>
-    <metric>getSeed</metric>
-    <metric>getNLCFraction</metric>
-    <metric>getMacroFraction</metric>
-    <metric>getMonoFraction</metric>
-    <enumeratedValueSet variable="gui-prop-monocytes-init">
-      <value value="0"/>
-      <value value="0.01"/>
-      <value value="0.02"/>
-      <value value="0.04"/>
-      <value value="0.08"/>
-      <value value="0.16"/>
-      <value value="0.31"/>
-      <value value="0.63"/>
-      <value value="1.25"/>
-      <value value="2.5"/>
-      <value value="5"/>
-      <value value="7.5"/>
-      <value value="10"/>
-      <value value="20"/>
-    </enumeratedValueSet>
-  </experiment>
-  <experiment name="NinaExploPredictionPatients" repetitions="1" runMetricsEveryStep="true">
-    <setup>setup</setup>
-    <go>go</go>
-    <timeLimit steps="312"/>
-    <metric>getSeed</metric>
-    <metric>getViability</metric>
-    <metric>getRemainingCellRatio</metric>
-    <enumeratedValueSet variable="gui-prop-monocytes-init">
+    <enumeratedValueSet variable="gui-prop-mono-init">
       <value value="1.1"/>
-      <value value="2.5"/>
-      <value value="1.25"/>
-      <value value="0.4"/>
     </enumeratedValueSet>
   </experiment>
-  <experiment name="NinaExploStochasticity-30days" repetitions="8" runMetricsEveryStep="true">
+  <experiment name="prediction-patient2-2.5" repetitions="8" runMetricsEveryStep="true">
     <setup>setup</setup>
     <go>go</go>
-    <timeLimit steps="720"/>
+    <timeLimit steps="312"/>
     <metric>getSeed</metric>
     <metric>getViability</metric>
     <metric>getRemainingCellRatio</metric>
-  </experiment>
-  <experiment name="NinaExploPrediction-30days" repetitions="3" runMetricsEveryStep="false">
-    <setup>setup</setup>
-    <go>go</go>
-    <timeLimit steps="720"/>
-    <metric>getSeed</metric>
-    <metric>getViability</metric>
-    <metric>getRemainingCellRatio</metric>
-    <enumeratedValueSet variable="gui-prop-monocytes-init">
-      <value value="0"/>
-      <value value="0.01"/>
-      <value value="0.02"/>
-      <value value="0.04"/>
-      <value value="0.08"/>
-      <value value="0.16"/>
-      <value value="0.31"/>
-      <value value="0.63"/>
-      <value value="1.25"/>
+    <enumeratedValueSet variable="gui-prop-mono-init">
       <value value="2.5"/>
-      <value value="5"/>
-      <value value="7.5"/>
-      <value value="10"/>
-      <value value="20"/>
     </enumeratedValueSet>
   </experiment>
-  <experiment name="NinaExploStochasticity10-4" repetitions="100" runMetricsEveryStep="true">
+  <experiment name="prediction-patient3-1.25" repetitions="8" runMetricsEveryStep="true">
+    <setup>setup</setup>
+    <go>go</go>
+    <timeLimit steps="312"/>
+    <metric>getSeed</metric>
+    <metric>getViability</metric>
+    <metric>getRemainingCellRatio</metric>
+    <enumeratedValueSet variable="gui-prop-mono-init">
+      <value value="2.5"/>
+    </enumeratedValueSet>
+  </experiment>
+  <experiment name="Explo-stochasticity-100-simulations" repetitions="100" runMetricsEveryStep="true">
     <setup>setup</setup>
     <go>go</go>
     <timeLimit steps="312"/>
@@ -1968,63 +1582,7 @@ NetLogo 3D 6.1.0
     <metric>getViability</metric>
     <metric>getRemainingCellRatio</metric>
   </experiment>
-  <experiment name="NinaExploStochasticity10-6" repetitions="100" runMetricsEveryStep="true">
-    <setup>setup</setup>
-    <go>go</go>
-    <timeLimit steps="312"/>
-    <metric>getSeed</metric>
-    <metric>getViability</metric>
-    <metric>getRemainingCellRatio</metric>
-  </experiment>
-  <experiment name="NinaExploStochasticity-CRE-1.1" repetitions="8" runMetricsEveryStep="true">
-    <setup>setup</setup>
-    <go>go</go>
-    <timeLimit steps="312"/>
-    <metric>getSeed</metric>
-    <metric>getViability</metric>
-    <metric>getRemainingCellRatio</metric>
-  </experiment>
-  <experiment name="NinaExploStochasticity-LAU-2.5" repetitions="8" runMetricsEveryStep="true">
-    <setup>setup</setup>
-    <go>go</go>
-    <timeLimit steps="312"/>
-    <metric>getSeed</metric>
-    <metric>getViability</metric>
-    <metric>getRemainingCellRatio</metric>
-  </experiment>
-  <experiment name="NinaExploStochasticity-DES-1.25" repetitions="8" runMetricsEveryStep="true">
-    <setup>setup</setup>
-    <go>go</go>
-    <timeLimit steps="312"/>
-    <metric>getSeed</metric>
-    <metric>getViability</metric>
-    <metric>getRemainingCellRatio</metric>
-  </experiment>
-  <experiment name="NinaExploStochasticity (4runs)" repetitions="4" runMetricsEveryStep="true">
-    <setup>setup</setup>
-    <go>go</go>
-    <timeLimit steps="312"/>
-    <metric>getSeed</metric>
-    <metric>getViability</metric>
-    <metric>getRemainingCellRatio</metric>
-  </experiment>
-  <experiment name="NinaExploStochasticity (25runs)" repetitions="25" runMetricsEveryStep="true">
-    <setup>setup</setup>
-    <go>go</go>
-    <timeLimit steps="312"/>
-    <metric>getSeed</metric>
-    <metric>getViability</metric>
-    <metric>getRemainingCellRatio</metric>
-  </experiment>
-  <experiment name="NinaExplo" repetitions="100" runMetricsEveryStep="true">
-    <setup>setup</setup>
-    <go>go</go>
-    <timeLimit steps="312"/>
-    <metric>getSeed</metric>
-    <metric>getViability</metric>
-    <metric>getRemainingCellRatio</metric>
-  </experiment>
-  <experiment name="NinaExploPerturbM2PhagoEff2" repetitions="3" runMetricsEveryStep="true">
+  <experiment name="PerturbM2PhagoEff2" repetitions="3" runMetricsEveryStep="true">
     <setup>setup</setup>
     <go>go</go>
     <timeLimit steps="312"/>
@@ -2033,7 +1591,7 @@ NetLogo 3D 6.1.0
     <metric>getRemainingCellRatio</metric>
     <steppedValueSet variable="gui-M2-phago-eff" first="0" step="2" last="10"/>
   </experiment>
-  <experiment name="NinaExploPerturbMonoPhagoEff" repetitions="3" runMetricsEveryStep="true">
+  <experiment name="PerturbMonoPhagoEff" repetitions="3" runMetricsEveryStep="true">
     <setup>setup</setup>
     <go>go</go>
     <timeLimit steps="312"/>
@@ -2042,7 +1600,7 @@ NetLogo 3D 6.1.0
     <metric>getRemainingCellRatio</metric>
     <steppedValueSet variable="gui-mono-phago-eff" first="0" step="2" last="10"/>
   </experiment>
-  <experiment name="NinaExploPerturbNLCPhagoEff" repetitions="3" runMetricsEveryStep="true">
+  <experiment name="PerturbNLCPhagoEff" repetitions="3" runMetricsEveryStep="true">
     <setup>setup</setup>
     <go>go</go>
     <timeLimit steps="312"/>
@@ -2051,7 +1609,7 @@ NetLogo 3D 6.1.0
     <metric>getRemainingCellRatio</metric>
     <steppedValueSet variable="gui-nlc-phago-eff" first="0" step="2" last="10"/>
   </experiment>
-  <experiment name="NinaExploPerturbM2KillEff" repetitions="3" runMetricsEveryStep="true">
+  <experiment name="PerturbM2KillEff" repetitions="3" runMetricsEveryStep="true">
     <setup>setup</setup>
     <go>go</go>
     <timeLimit steps="312"/>
@@ -2060,7 +1618,7 @@ NetLogo 3D 6.1.0
     <metric>getRemainingCellRatio</metric>
     <steppedValueSet variable="gui-M2-kill-eff" first="0" step="1" last="5"/>
   </experiment>
-  <experiment name="NinaExploPerturbNLCProtection" repetitions="3" runMetricsEveryStep="true">
+  <experiment name="PerturbNLCProtection" repetitions="3" runMetricsEveryStep="true">
     <setup>setup</setup>
     <go>go</go>
     <timeLimit steps="312"/>
@@ -2069,7 +1627,7 @@ NetLogo 3D 6.1.0
     <metric>getRemainingCellRatio</metric>
     <steppedValueSet variable="gui-alpha" first="0" step="10" last="50"/>
   </experiment>
-  <experiment name="NinaExploPerturbApoMov" repetitions="3" runMetricsEveryStep="true">
+  <experiment name="PerturbApoMov" repetitions="3" runMetricsEveryStep="true">
     <setup>setup</setup>
     <go>go</go>
     <timeLimit steps="312"/>
@@ -2078,7 +1636,7 @@ NetLogo 3D 6.1.0
     <metric>getRemainingCellRatio</metric>
     <steppedValueSet variable="gui-apo-mov" first="0" step="2" last="10"/>
   </experiment>
-  <experiment name="NinaExploPerturbNeedSigMov" repetitions="3" runMetricsEveryStep="true">
+  <experiment name="PerturbNeedSigMov" repetitions="3" runMetricsEveryStep="true">
     <setup>setup</setup>
     <go>go</go>
     <timeLimit steps="312"/>
@@ -2087,7 +1645,7 @@ NetLogo 3D 6.1.0
     <metric>getRemainingCellRatio</metric>
     <steppedValueSet variable="gui-need-sig-mov" first="0" step="2" last="10"/>
   </experiment>
-  <experiment name="NinaExploPerturbDiffStd" repetitions="3" runMetricsEveryStep="true">
+  <experiment name="PerturbDiffStd" repetitions="3" runMetricsEveryStep="true">
     <setup>setup</setup>
     <go>go</go>
     <timeLimit steps="312"/>
@@ -2096,7 +1654,7 @@ NetLogo 3D 6.1.0
     <metric>getRemainingCellRatio</metric>
     <steppedValueSet variable="gui-diff-std" first="0" step="10" last="50"/>
   </experiment>
-  <experiment name="NinaExploPerturbDiffMean" repetitions="3" runMetricsEveryStep="true">
+  <experiment name="PerturbDiffMean" repetitions="3" runMetricsEveryStep="true">
     <setup>setup</setup>
     <go>go</go>
     <timeLimit steps="312"/>
@@ -2105,7 +1663,7 @@ NetLogo 3D 6.1.0
     <metric>getRemainingCellRatio</metric>
     <steppedValueSet variable="gui-diff-mean" first="0" step="24" last="120"/>
   </experiment>
-  <experiment name="NinaExploPerturbLayers" repetitions="3" runMetricsEveryStep="true">
+  <experiment name="PerturbLayers" repetitions="3" runMetricsEveryStep="true">
     <setup>setup</setup>
     <go>go</go>
     <timeLimit steps="312"/>
@@ -2114,7 +1672,7 @@ NetLogo 3D 6.1.0
     <metric>getRemainingCellRatio</metric>
     <steppedValueSet variable="gui-layers" first="1" step="1" last="2"/>
   </experiment>
-  <experiment name="NinaExploCLLSensDist" repetitions="3" runMetricsEveryStep="true">
+  <experiment name="PerturbCLLSensDist" repetitions="3" runMetricsEveryStep="true">
     <setup>setup</setup>
     <go>go</go>
     <timeLimit steps="312"/>
@@ -2123,7 +1681,7 @@ NetLogo 3D 6.1.0
     <metric>getRemainingCellRatio</metric>
     <steppedValueSet variable="gui-cll-sens-dist" first="1" step="1" last="3"/>
   </experiment>
-  <experiment name="NinaExploMonoSensDist" repetitions="3" runMetricsEveryStep="true">
+  <experiment name="PerturbMonoSensDist" repetitions="3" runMetricsEveryStep="true">
     <setup>setup</setup>
     <go>go</go>
     <timeLimit steps="312"/>
@@ -2132,7 +1690,7 @@ NetLogo 3D 6.1.0
     <metric>getRemainingCellRatio</metric>
     <steppedValueSet variable="gui-mono-sens-dist" first="1" step="1" last="3"/>
   </experiment>
-  <experiment name="NinaExploNLCSensDist" repetitions="3" runMetricsEveryStep="true">
+  <experiment name="PerturbNLCSensDist" repetitions="3" runMetricsEveryStep="true">
     <setup>setup</setup>
     <go>go</go>
     <timeLimit steps="312"/>
@@ -2141,7 +1699,7 @@ NetLogo 3D 6.1.0
     <metric>getRemainingCellRatio</metric>
     <steppedValueSet variable="gui-nlc-sens-dist" first="1" step="1" last="3"/>
   </experiment>
-  <experiment name="NinaExploMacroSensDist" repetitions="3" runMetricsEveryStep="true">
+  <experiment name="PerturbMacroSensDist" repetitions="3" runMetricsEveryStep="true">
     <setup>setup</setup>
     <go>go</go>
     <timeLimit steps="312"/>
@@ -2150,7 +1708,7 @@ NetLogo 3D 6.1.0
     <metric>getRemainingCellRatio</metric>
     <steppedValueSet variable="gui-macro-sens-dist" first="1" step="1" last="3"/>
   </experiment>
-  <experiment name="NinaExploPerturbNLCThreshold" repetitions="3" runMetricsEveryStep="true">
+  <experiment name="PerturbNLCThreshold" repetitions="3" runMetricsEveryStep="true">
     <setup>setup</setup>
     <go>go</go>
     <timeLimit steps="312"/>
@@ -2159,7 +1717,7 @@ NetLogo 3D 6.1.0
     <metric>getRemainingCellRatio</metric>
     <steppedValueSet variable="gui-nlc-threshold" first="0" step="30" last="180"/>
   </experiment>
-  <experiment name="NinaExploPerturbSigInit" repetitions="3" runMetricsEveryStep="true">
+  <experiment name="PerturbSigInit" repetitions="3" runMetricsEveryStep="true">
     <setup>setup</setup>
     <go>go</go>
     <timeLimit steps="312"/>
@@ -2168,7 +1726,7 @@ NetLogo 3D 6.1.0
     <metric>getRemainingCellRatio</metric>
     <steppedValueSet variable="gui-sig-init" first="0" step="30" last="120"/>
   </experiment>
-  <experiment name="NinaExploPerturbSigInitStd" repetitions="3" runMetricsEveryStep="true">
+  <experiment name="PerturbSigInitStd" repetitions="3" runMetricsEveryStep="true">
     <setup>setup</setup>
     <go>go</go>
     <timeLimit steps="312"/>
