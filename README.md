@@ -5,5 +5,5 @@ This repository contains data related to an agent-based model describing the dif
 
 ## Project organisation
 - **netlogo** source file for the agent-based model, in NetLogo
-- **openmole** source files for the exploration of the model with OpenMOLE
+- **openmole** source files for exploring the model on the OpenMOLE platform https://openmole.org
 - **figures** source files to generate the figures and analysis of the related publication
