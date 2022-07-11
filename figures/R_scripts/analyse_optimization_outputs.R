@@ -51,9 +51,9 @@ my_data <- as.data.frame(parameters_agg)
 svg("Corr_plot_parameters.svg", width = 7, height = 6)
 corrplot(
   cor(my_data[, 1:(ncol(my_data)-2)]),
-  method = "color",
+  method = "circle", #"color",
   type = "full", #upper",
-  addCoef.col = "black",
+  #addCoef.col = "black",
   order = "hclust",
   hclust.method = "complete",
   tl.srt = 45,
@@ -75,6 +75,7 @@ corr_coef_ord <- corr_coef[order(abs(corr_coef[, ncol(corr_coef) - 1])),]
 
 
 corrplot_obj <- melt(corr_coef_ord[, (ncol(corr_coef_ord)-1):ncol(corr_coef_ord)])
+corrplot_obj <- slice(corrplot_obj, -c(16,19,35,38))
 colnames(corrplot_obj) <- c("Parameter", "Fitness", "value")
 
 svg("Corr_plot_fitnesses.svg", width = 7, height = 7)
@@ -99,8 +100,8 @@ pareto_front <-
 
 ggplot_obj <- melt(pareto_front[, 3:length(pareto_front)])
 svg("pareto_front_distribution.svg", width = 8.3, height = 8)
-ggplot(ggplot_obj, aes(factor(variable), value, fill = variable)) +
-  geom_violin() +
+ggplot(ggplot_obj, aes(factor(variable), value)) + 
+  geom_violin(fill='#A4A4A4', color="darkred") +
   geom_point() + 
   geom_boxplot(alpha = 0.3,
                color = "black",
