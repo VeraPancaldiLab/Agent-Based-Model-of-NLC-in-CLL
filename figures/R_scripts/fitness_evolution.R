@@ -1,20 +1,20 @@
 ######################
 # Plot the Viability fitness evolution
 via_max_vals <-
-  parameters_agg %>% group_by(evolution.generation) %>% top_n(1, Viability_fitness)
+  parameters_agg %>% group_by(evolution.generation) %>% top_n(1, fitnessVia)
 via_max <-
   as.data.frame(cbind(
     via_max_vals$evolution.generation,
-    via_max_vals$Viability_fitness
+    via_max_vals$fitnessVia
   ))
 colnames(via_max) <- c("Generation", "Viability_fitness_max_value")
 
 via_min_vals <-
-  parameters_agg %>% group_by(evolution.generation) %>% top_n(-1, Viability_fitness)
+  parameters_agg %>% group_by(evolution.generation) %>% top_n(-1, fitnessVia)
 via_min <-
   as.data.frame(cbind(
     via_min_vals$evolution.generation,
-    via_min_vals$Viability_fitness
+    via_min_vals$fitnessVia
   ))
 colnames(via_min) <- c("Generation", "Viability_fitness_min_value")
 
@@ -34,22 +34,22 @@ ggplot(Viability_evolution, aes(x = Generation, y = value, colour = variable)) +
 
 # Plot the Concentration fitness evolution
 conc_max_vals <-
-  parameters_agg %>% group_by(evolution.generation) %>% top_n(1, Concentration_fitness)
+  parameters_agg %>% group_by(evolution.generation) %>% top_n(1, fitnessConc)
 
 conc_max <-
   as.data.frame(cbind(
     conc_max_vals$evolution.generation,
-    conc_max_vals$Concentration_fitness
+    conc_max_vals$fitnessConc
   ))
 colnames(conc_max) <- c("Generation", "conc_max_value")
 conc_max <- conc_max %>% distinct(Generation, .keep_all = TRUE)
 
 conc_min_vals <-
-  parameters_agg %>% group_by(evolution.generation) %>% top_n(-1, Concentration_fitness)
+  parameters_agg %>% group_by(evolution.generation) %>% top_n(-1, fitnessConc)
 conc_min <-
   as.data.frame(cbind(
     conc_min_vals$evolution.generation,
-    conc_min_vals$Concentration_fitness
+    conc_min_vals$fitnessConc
   ))
 colnames(conc_min) <- c("Generation", "conc_min_value")
 
