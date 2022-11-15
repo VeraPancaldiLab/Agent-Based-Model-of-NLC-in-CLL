@@ -1,0 +1,180 @@
+val ifb =
+  SLURMEnvironment(
+    "nverstraete",
+    "core.cluster.france-bioinformatique.fr",
+    sharedDirectory = "/shared/projects/modellingtme",
+    workDirectory = "/tmp/",
+    qos = "fast"
+  )
+
+// Inputs
+val mySeed = Val[Int]
+val simulationDuration = Val[Int]
+val coef = Val[Int]
+val density = Val[Double]
+val nbCancerCellsInit = Val[Int]
+val propMonocytesInit = Val[Double]
+val propApoInit = Val[Double]
+val apoptosisThreshold = Val[Double]
+val deathThreshold = Val[Double]
+
+// Parameters to optimize
+val apoCellsMovementProba = Val[Int]
+val needSigCellsMvtProba = Val[Int]
+val layersAroundNLC = Val[Int]
+val antiApoBoost = Val[Int]
+val monoPhagoEff = Val[Int]
+val nlcPhagoEff = Val[Int]
+val macroPhagoEff = Val[Int]
+val macroKillEff = Val[Int]
+val cllSensingDistance = Val[Int]
+val monocyteSensingDistance = Val[Int]
+val nlcSensingDistance = Val[Int]
+val macrophageSensingDistance = Val[Int]
+val monoDiffThreshold = Val[Int]
+val monoDiffTimeStd = Val[Int]
+val nlcThreshold = Val[Int]
+val signalInitMean = Val[Int]
+val signalInitStd = Val[Int]
+val gammaLifeInitRate = Val[Int]
+val gammaLifeInitShape = Val[Double]
+
+
+// Experimental Data
+val dataFile = Val[File]
+
+// Outputs
+val nbNeedSignalCancerCells = Val[Double]
+val nbApoCancerCells = Val[Double]
+val nbMonocytes = Val[Double]
+val nbMonocytesInit = Val[Double]
+val nbNurseLikeCells = Val[Double]
+val nbDeadCancerCells = Val[Double]
+val viability = Val[Double]
+val remainingCellsRatio = Val[Double]
+val nlcFraction = Val[Double]
+val simulatedViabilityVector = Val[Array[Double]]
+val simulatedConcentrationVector = Val[Array[Double]]
+val simulatedNLCFractionVector = Val[Array[Double]]
+val fitnessVia = Val[Double]
+val fitnessConc = Val[Double]
+val fitnessNLC = Val[Double]
+val fitnessGlobal = Val[Double]
+
+
+val launch = List(
+    "headless-setup",
+    "while [ ticks < simulation-duration * 24 and count NeedSignalCancerCells + count ApoCancerCells  > 0] [ headless-go ]"
+    )
+
+// The model definition            
+def modelTask(monoInit: Double, apoInit: Double, simuDur: Int) =
+    NetLogo6Task(workDirectory / "ABM_NLC_CLL.nlogo", launch, embedWorkspace = false, switch3d = false, seed = mySeed) set( 
+        inputs += mySeed mapped "my-seed",
+        inputs += simulationDuration mapped "simulation-duration",
+        inputs += coef mapped "coef",
+        inputs += nbCancerCellsInit mapped "nb-cancer-cells-init",
+        inputs += propMonocytesInit mapped "prop-monocytes-init",
+        inputs += propApoInit mapped "prop-apo-init",
+        inputs += density mapped "density",
+        inputs += nlcThreshold mapped "nlc-threshold",
+        inputs += apoptosisThreshold mapped "apoptosis-threshold",
+        inputs += deathThreshold mapped "death-threshold",
+        inputs += monoDiffThreshold mapped "adherence-time", 
+        inputs += monoDiffTimeStd mapped "adherence-init-std", 
+        inputs += signalInitMean mapped "signal-init-mean", 
+        inputs += signalInitStd mapped "signal-init-std", 
+        inputs += apoCellsMovementProba mapped "apo-cells-movement-proba",
+        inputs += needSigCellsMvtProba mapped "need-sig-cells-mvt-proba",
+        inputs += layersAroundNLC mapped "layers-around-nlc",
+        inputs += antiApoBoost mapped "anti-apo-boost",
+        inputs += monoPhagoEff mapped "mono-phago-eff",
+        inputs += nlcPhagoEff mapped "nlc-phago-eff",
+        inputs += macroPhagoEff mapped "macro-phago-eff", 
+        inputs += macroKillEff mapped "macro-kill-eff", 
+        inputs += cllSensingDistance mapped "cll-sensing-distance",
+        inputs += monocyteSensingDistance mapped "monocyte-sensing-distance",
+        inputs += nlcSensingDistance mapped "nlc-sensing-distance",
+        inputs += macrophageSensingDistance mapped "macrophage-sensing-distance",
+        inputs += gammaLifeInitRate mapped "gamma-life-init-rate",
+        inputs += gammaLifeInitShape mapped "gamma-life-init-shape",
+
+        outputs += simulatedViabilityVector mapped "ts-Viability",
+        outputs += simulatedConcentrationVector mapped "ts-Concentration",
+  
+        //Default values. Can be removed if OpenMOLE Vals are set by values coming from the workflow
+        //mySeed := 42,
+        simulationDuration := simuDur,
+        coef := 1,
+        nbCancerCellsInit := 1000,
+        propMonocytesInit := monoInit,
+        propApoInit := apoInit,
+        density := 55,
+        apoptosisThreshold := 0,
+        deathThreshold := -500,
+    )
+
+val fitnessTask = ScalaTask("""
+    
+    // get the experimental real dataFile
+    val columns = dataFile.lines.drop(1).map(_.split(",")).toVector
+
+    val realViabilityVector = columns.map(_(1).toDouble)
+    val realConcentrationVector = columns.map(_(2).toDouble)
+    
+    val simulatedViabilityVector = simulatedViabilityVector.toVector
+    val simulatedConcentrationVector2 = simulatedConcentrationVector.toVector
+
+    // fitness calculation on viability
+    def fitnessViability(realViability: Vector[Double], simuViability: Vector[Double]) = {
+        (realViability zip simuViability).map { case(r, s) => (r - s) * (r - s) }.sum
+    }
+    
+    // fitness calculation on concentration
+    def fitnessConcentration(realConcentration: Vector[Double], simuConcentration: Vector[Double]) = {
+        (realConcentration zip simuConcentration).map { case(r, s) => (r - s) * (r - s) }.sum
+    }
+    
+    val fitnessVia = fitnessViability(realViabilityVector, simulatedViabilityVector)
+    val fitnessConc = fitnessConcentration(realConcentrationVector, simulatedConcentrationVector2)
+    
+""") set (
+    dataFile := (workDirectory / "filtered_fused_9patients.csv"),
+    inputs += dataFile,
+    inputs += (simulatedViabilityVector,simulatedConcentrationVector),
+    outputs += (fitnessVia, fitnessConc) 
+)
+
+def calib(simuDur: Int) = {
+    NSGA2Evolution(
+        evaluation = modelTask(1.28, 4.55, simuDur) -- fitnessTask,
+        genome = Seq(
+        apoCellsMovementProba in (0,10),
+        needSigCellsMvtProba in (0,10),
+        layersAroundNLC in (1,3),
+        antiApoBoost in (0,300),
+        monoPhagoEff in (0,100),
+        nlcPhagoEff in (0,100),
+        macroPhagoEff in (0,100),
+        macroKillEff in (0,5),
+        cllSensingDistance in (1,3),
+        monocyteSensingDistance in (1,3),
+        nlcSensingDistance in (1,3),
+        macrophageSensingDistance in (1,3),
+        nlcThreshold in (96,204), 
+        signalInitMean in (0,72),
+        signalInitStd in (0,48),
+        monoDiffThreshold in (48,72),
+        monoDiffTimeStd in (0,48),
+        gammaLifeInitRate in (50,2500),
+        gammaLifeInitShape in (0.01, 1.0)
+        ),
+        objective = Seq(fitnessVia, fitnessConc),
+        stochastic = Stochastic(seed = mySeed),
+        parallelism = 200,
+        termination = 20000, // (generations)
+        distribution = Island(2 minutes),//5 minutes),
+    ) on ifb hook(workDirectory / "ABM_2D_9_patients_0", 1) // 1 save each 1 pop
+}
+
+calib(13) // Mean of 9 patients
