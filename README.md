@@ -6,4 +6,4 @@ This repository contains data related to an agent-based model (ABM) describing t
 ## Project organisation
 - **netlogo** source file for the agent-based model. The model can be run with NetLogo 6.1.0 or online at https://www.netlogoweb.org/ (press 'setup', then 'go').
 - **openmole** source files for exploring the model on the OpenMOLE platform https://openmole.org
-- **figures** source files to generate the figures and analysis of the related publication
+- **figures and outputs** exploration outputs and source files used to generate the figures and analysis of the related publication
