@@ -174,7 +174,7 @@ def calib(simuDur: Int) = {
         parallelism = 200,
         termination = 20000, // (generations)
         distribution = Island(2 minutes),//5 minutes),
-    ) on ifb hook(workDirectory / "ABM_2D_9_patients_0", 1) // 1 save each 1 pop
+    ) on ifb hook(workDirectory / "NSGAII_exploration_output", 1) // 1 save each 1 pop
 }
 
 calib(13) // Mean of 9 patients
