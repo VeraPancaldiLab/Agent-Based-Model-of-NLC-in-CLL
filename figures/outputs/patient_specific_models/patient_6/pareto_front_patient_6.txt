@@ -1,0 +1,7 @@
+delta_fitness_via,delta_fitness_conc, apoCellsMovementProba, needSigCellsMvtProba, layersAroundNLC, antiApoBoost, monoPhagoEff, nlcPhagoEff, macroPhagoEff, macroKillEff, cllSensingDistance, monocyteSensingDistance, nlcSensingDistance, macrophageSensingDistance, nlcThreshold, signalInitMean, signalInitStd, monoDiffThreshold , monoDiffTimeStd, gammaLifeInitRate, gammaLifeInitShape
+144.96823260231997,1325.1300000000006,7, 4, 2, 229, 61, 1, 33, 4, 2, 2, 1, 1, 106, 49, 26, 68, 0, 2367, 0.268057841048476
+146.6022585293159,1145.935,7, 4, 2, 229, 61, 1, 33, 0, 2, 2, 1, 1, 106, 34, 26, 68, 0, 2367, 0.2700215139019599
+287.2863787973955,495.255,0, 7, 2, 101, 61, 8, 3, 2, 2, 2, 1, 1, 128, 49, 16, 49, 18, 2320, 0.3061391525170751
+415.9984554178994,487.1900000000001,0, 9, 3, 104, 44, 79, 0, 2, 3, 3, 1, 1, 127, 30, 11, 65, 3, 2208, 0.366639443117318
+425.4088997516809,487.11000000000007,0, 9, 3, 104, 44, 79, 0, 2, 3, 3, 1, 1, 127, 30, 11, 65, 3, 2208, 0.366639443117318
+452.8520402493178,479.07500000000016,0, 9, 3, 196, 44, 79, 0, 2, 3, 3, 1, 1, 127, 30, 11, 65, 3, 2208, 0.3669245683635442
