@@ -8,7 +8,7 @@ It presents an agent-based model (ABM) describing the differentiation dynamics o
 
 The model can be run online at [https://www.netlogoweb.org/](https://www.netlogoweb.org/). To do this: 
 - download the NetLogo model [here](https://github.com/VeraPancaldiLab/Agent-Based-Model-of-NLC-in-CLL/blob/main/netlogo/ABM_NLC_CLL.nlogo) (`right click` the `Raw` button at the top of the file, select `Save Link As…`, choose the location on your computer where you want to save the file, and select `Save`).
-- go at [https://www.netlogoweb.org/](https://www.netlogoweb.org/)
+- go at [https://www.netlogoweb.org/](https://www.netlogoweb.org/) and click on NetLogo Web
 - upload the model
 - click `setup` and `go`.
 
