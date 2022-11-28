@@ -9,7 +9,12 @@ It presents an agent-based model (ABM) describing the differentiation dynamics o
 The goal of this ABM is to reproduce dynamics compatible with an *in vitro* experimental setting of monocytes differentiation in presence of leukemic (B-CLL).
 
 The model can be run online at [https://www.netlogoweb.org/](https://www.netlogoweb.org/).
-Simply download the NetLogo model [here](https://github.com/VeraPancaldiLab/Agent-Based-Model-of-NLC-in-CLL/blob/main/netlogo/ABM_NLC_CLL.nlogo) (`right click` the `Raw` button at the top of the file, select `Save Link As…`, choose the location on your computer where you want to save the file, and select `Save`).
+
+To do this: 
+- download the NetLogo model [here](https://github.com/VeraPancaldiLab/Agent-Based-Model-of-NLC-in-CLL/blob/main/netlogo/ABM_NLC_CLL.nlogo) (`right click` the `Raw` button at the top of the file, select `Save Link As…`, choose the location on your computer where you want to save the file, and select `Save`).
+- go at [https://www.netlogoweb.org/](https://www.netlogoweb.org/)
+- upload the model
+- click `setup` and `go`.
 
 ## Project organisation
 
