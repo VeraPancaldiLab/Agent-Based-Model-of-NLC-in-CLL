@@ -7,11 +7,11 @@ This repository contains data related to the publication [An Agent-Based Model o
 It presents an agent-based model (ABM) describing the differentiation dynamics of monocytes into tumour-associated macrophages upon contact with cancer B cells in the context of chronic lymphocytic leukemia. The goal of this ABM is to reproduce dynamics compatible with an *in vitro* experimental setting of monocytes differentiation in presence of leukemic (B-CLL).
 
 
-![fig1](https://raw.githubusercontent.com/VeraPancaldiLab/Agent-Based-Model-of-NLC-in-CLL/images/Figure1-edit2-01.png)
+![fig1](https://raw.githubusercontent.com/VeraPancaldiLab/Agent-Based-Model-of-NLC-in-CLL/master/images/Figure1-edit2-01.png)
 
 _**Fig.1 Experimental setups and datasets from in vitro PBMC cultures from CLL patients.** A) Experimental set-up. B) Visualization of NLCs at 10 days of in vitro culture from two different patients. C) Time course datasets produced from the PBMC autologous cultures from 9 patients. D) Heterologous co-cultures._
 
-![fig2](https://raw.githubusercontent.com/VeraPancaldiLab/Agent-Based-Model-of-NLC-in-CLL/images/Figure2-edit2.png)
+![fig2](https://raw.githubusercontent.com/VeraPancaldiLab/Agent-Based-Model-of-NLC-in-CLL/master/images/Figure2-edit2.png)
 
 _**Fig. 2. ABM representations.** A) Netlogo simulation of 5000 cells. B) Schematic diagram of the agents’ states and behaviors._
 
