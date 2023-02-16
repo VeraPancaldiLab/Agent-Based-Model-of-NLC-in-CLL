@@ -23,3 +23,8 @@ _**Fig.1 Experimental setups and datasets from in vitro PBMC cultures from CLL p
 
 ![fig2](https://raw.githubusercontent.com/VeraPancaldiLab/Agent-Based-Model-of-NLC-in-CLL/master/images/Figure2-edit2.png)
 _**Fig. 2. ABM representations.** A) Netlogo simulation of 5000 cells. B) Schematic diagram of the agents’ states and behaviors._
+
+## Videos
+
+- A video of a simulation of 5000 cells can be found at https://doi.org/10.6084/m9.figshare.21592368.v1.
+- A video of a live-imaging microscopy capture attempting to acquire cell pattern formations is available at https://doi.org/10.6084/m9.figshare.22110926.v1. 
