@@ -4,7 +4,7 @@
 
 - The model called "ABM_NLC_CLL.nlogo" is the 2D version. It can be run either locally with NetLogo 6.1.0, or online at https://www.netlogoweb.org/ (press 'setup', then 'go').
 
-- A video of a simulation of 5000 cells can be found at https://figshare.com/articles/media/Simulation_of_Nurse-Like_Cells_in_vitro_formation_in_co-cultures/21592368.
+- A video of a simulation of 5000 cells can be found at https://doi.org/10.6084/m9.figshare.21592368.v1.
 
 ## 3D version of the ABM
 
