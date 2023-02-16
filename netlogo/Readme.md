@@ -8,4 +8,4 @@
 
 ## 3D version of the ABM
 
-The model called "ABM_NLC_CLL_3D.nlogo" is the 3D version. It can only be run locally with *NetLogo 3D 6.1.0*. The web version does not support 3D models. Note that this model is implemented for 3 layers of cells. If you wish to simulate a higher number of cell layers, you will need to edit the z-max parameter value directly in the source code (l.130).
+The model called "ABM_NLC_CLL_3D.nlogo" is the 3D version. It can only be run locally with **NetLogo 3D 6.1.0**. The web version does not support 3D models. Note that this model is implemented for 3 layers of cells. If you wish to simulate a higher number of cell layers, you will need to edit the z-max parameter value directly in the source code (l.130).
