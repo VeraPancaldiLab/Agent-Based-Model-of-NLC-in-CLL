@@ -2,7 +2,7 @@
 
 - Netlogo 6.1.0 software can be downloaded at http://ccl.northwestern.edu/netlogo/download.shtml.
 
-- The model called "ABM_NLC_CLL.nlogo" is the 2D version. It can be run either locally with NetLogo 6.1.0, or online at https://www.netlogoweb.org/ (press 'setup', then 'go').
+- The model called "ABM_NLC_CLL.nlogo" is the 2D version. It can be run either locally with **NetLogo 6.1.0**, or online at https://www.netlogoweb.org/ (press 'setup', then 'go').
 
 - A video of a simulation of 5000 cells can be found at https://doi.org/10.6084/m9.figshare.21592368.v1.
 
