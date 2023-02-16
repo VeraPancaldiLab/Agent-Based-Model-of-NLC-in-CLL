@@ -127,7 +127,7 @@ end
 
 to setup-Globals
 ; fixed
-  set z-max 1 ; use a value of x for x+2 layers of cells.
+  set z-max 1 ; use a value of 0 for a single layer of cell, or x for x+2 layers of cells.
   set coef 1
   set apoptosis-threshold 0
   set death-threshold -500
